@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-internal class WeatherService
+public class WeatherService
 {
     private HttpClient _httpClient;
     private JsonSerializerOptions _jsonOptions;
