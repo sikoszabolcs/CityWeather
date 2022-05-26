@@ -1,9 +1,9 @@
-using System;
 using CityWeather.Services;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace CityWeather.Tests;
@@ -30,6 +30,14 @@ internal class WeatherApplication : WebApplicationFactory<Program>
                 .Options);
             services.AddHttpClient<WeatherService>();
             services.AddHttpClient<CountryInfoService>();
+                
+            var sp = services.BuildServiceProvider();
+            using var scope = sp.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+            var cityDb = scopedServices.GetRequiredService<CityDb>();
+            // Ensure the database is deleted and re-created.
+            cityDb.Database.EnsureDeleted();
+            cityDb.Database.EnsureCreated();
         });
 
         return base.CreateHost(builder);
