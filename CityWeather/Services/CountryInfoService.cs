@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using CityWeather.Models.Country;
+﻿using CityWeather.Models.Country;
 
 namespace CityWeather.Services;
 
