@@ -1,3 +1,7 @@
+using CityWeather;
+using CityWeather.Models;
+using CityWeather.Models.City;
+using CityWeather.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

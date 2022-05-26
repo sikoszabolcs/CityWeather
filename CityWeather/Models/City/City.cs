@@ -30,6 +30,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CityWeather.Models.City;
+
 public enum TouristRating
 {
     Bad = 1,

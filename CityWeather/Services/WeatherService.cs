@@ -1,9 +1,13 @@
 ﻿using System.Text.Json;
+using CityWeather.Models.City;
+using CityWeather.Models.Weather;
+
+namespace CityWeather.Services;
 
 public class WeatherService
 {
-    private HttpClient _httpClient;
-    private JsonSerializerOptions _jsonOptions;
+    private readonly HttpClient _httpClient;
+    private readonly JsonSerializerOptions _jsonOptions;
 
     public WeatherService(HttpClient client)
     {
@@ -16,7 +20,7 @@ public class WeatherService
         var apiKey = "40e731b3833b662d8440f70f58e3b731";
         var uri = 
             string.Format("/data/2.5/weather?q={0},{1},{2}&appid={3}&units=metric", 
-            city.Name, city.State, city.Country, apiKey);
+                city.Name, city.State, city.Country, apiKey);
         var response = await _httpClient.GetAsync(uri);
         WeatherRoot? weather = null!;
         if (response.IsSuccessStatusCode)

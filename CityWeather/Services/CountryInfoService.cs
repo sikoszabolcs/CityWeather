@@ -1,9 +1,12 @@
 ﻿using System.Text.Json;
+using CityWeather.Models.Country;
+
+namespace CityWeather.Services;
 
 public class CountryInfoService
 {
-    private HttpClient _httpClient;
-    private JsonSerializerOptions _jsonOptions;
+    private readonly HttpClient _httpClient;
+    private readonly JsonSerializerOptions _jsonOptions;
 
     public CountryInfoService(HttpClient client)
     {

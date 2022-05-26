@@ -1,4 +1,6 @@
-﻿public class WeatherRoot
+﻿namespace CityWeather.Models.Weather;
+
+public class WeatherRoot
 {
     public Coord coord { get; set; }
     public Weather[] weather { get; set; }
