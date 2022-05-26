@@ -131,6 +131,12 @@ namespace CityWeather.Tests
         [Fact]
         public async Task TestSearchByNameEndpoint()
         {
+            await using var application = new WeatherApplication();
+            var client = application.CreateClient();
+            
+            var getResult = await client.GetAsync("/searchByName/Paris");
+            
+            Assert.Equal(HttpStatusCode.NotFound, getResult.StatusCode);
         }
     }
 }

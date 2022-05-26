@@ -60,8 +60,3 @@ public class Weather
     public string description { get; set; }
     public string icon { get; set; }
 }
-
-// References:
-// https://docs.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-6.0&tabs=visual-studio
-// Swagger
-// Postman

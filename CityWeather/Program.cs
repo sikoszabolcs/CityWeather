@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddDbContext<CityDb>(opt => opt.UseInMemoryDatabase("CityDb"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddHttpClient<WeatherService>(
@@ -20,6 +19,10 @@ builder.Services.AddHttpClient<WeatherService>(
         client.DefaultRequestHeaders.Accept.Clear();
         client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
     });
+builder.Services.AddHttpClient<CountryInfoService>(client =>
+{
+    client.BaseAddress = new Uri("https://restcountries.com");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

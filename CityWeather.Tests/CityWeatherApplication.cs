@@ -22,12 +22,12 @@ internal class WeatherApplication : WebApplicationFactory<Program>
         // Add mock/test services to the builder here
         builder.ConfigureServices(services =>
         {
-            services.AddScoped(sp => new DbContextOptionsBuilder<CityDb>()
+            services.AddTransient(sp => new DbContextOptionsBuilder<CityDb>()
                 .UseInMemoryDatabase("Tests")
                 .UseApplicationServiceProvider(sp)
                 .Options);
-            services.AddSingleton<WeatherService>();
-            services.AddSingleton<CountryInfoService>();
+            services.AddHttpClient<WeatherService>();
+            services.AddHttpClient<CountryInfoService>();
         });
 
         return base.CreateHost(builder);
