@@ -70,6 +70,6 @@ public class ExternalCountryApiTests
         Assert.Single(countryDetails);
         Assert.Equal("KH", countryDetails?[0].cca2);
         Assert.Equal("KHM", countryDetails?[0].cca3);
-        Assert.Equal("KHR, USD", GetCurrencies(countryDetails?[0].currencies));
+        Assert.Equal("KHR,USD", GetCurrencies(countryDetails?[0].currencies));
     }
 }

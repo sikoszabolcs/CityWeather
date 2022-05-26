@@ -138,5 +138,35 @@ namespace CityWeather.Tests
             
             Assert.Equal(HttpStatusCode.NotFound, getResult.StatusCode);
         }
+        
+        [Fact]
+        public async Task TestSearchByName()
+        {
+            await using var application = new WeatherApplication();
+            var client = application.CreateClient();
+                
+            var postResponse = await client.PostAsJsonAsync(
+                "/city",
+                new City
+                {
+                    Id = 0,
+                    Country = "France",
+                    Name = "Paris",
+                    EstablishedDate = new DateTime(0),
+                    Rating = TouristRating.Good,
+                    EstimatedPopulation = 2165423,
+                    State = "Île-de-France"
+                });
+            Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+            var cityCountryWeatherCollection = await client.GetFromJsonAsync<CityCountryWeather[]>("/searchByName/Paris");
+            Assert.NotNull(cityCountryWeatherCollection);
+            Assert.Single(cityCountryWeatherCollection);
+            Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
+            Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
+            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal(TouristRating.Good, cityCountryWeatherCollection?[0].City.Rating);
+            Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
+            Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
+        }
     }
 }

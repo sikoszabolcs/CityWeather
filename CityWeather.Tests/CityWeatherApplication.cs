@@ -1,3 +1,4 @@
+using System;
 using CityWeather.Services;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,8 @@ internal class WeatherApplication : WebApplicationFactory<Program>
         // Add mock/test services to the builder here
         builder.ConfigureServices(services =>
         {
-            services.AddTransient(sp => new DbContextOptionsBuilder<CityDb>()
-                .UseInMemoryDatabase("Tests")
+            services.AddScoped(sp => new DbContextOptionsBuilder<CityDb>()
+                .UseInMemoryDatabase("Test")
                 .UseApplicationServiceProvider(sp)
                 .Options);
             services.AddHttpClient<WeatherService>();

@@ -15,13 +15,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddHttpClient<WeatherService>(
     client =>
     {
-        client.BaseAddress = new Uri("https://api.openweathermap.org");
+        const string weatherApiEndpointUri = "https://api.openweathermap.org";
+        client.BaseAddress = new Uri(weatherApiEndpointUri);
         client.DefaultRequestHeaders.Accept.Clear();
         client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
     });
 builder.Services.AddHttpClient<CountryInfoService>(client =>
 {
-    client.BaseAddress = new Uri("https://restcountries.com");
+    const string countriesApiEndpointUri = "https://restcountries.com";
+    client.BaseAddress = new Uri(countriesApiEndpointUri);
 });
 var app = builder.Build();
 
@@ -74,13 +76,13 @@ app.MapGet("/searchByName/{name}",
     var result = new List<CityCountryWeather>();
     foreach (var city in cities)
     {
-        //var weather = await weatherService.GetWeatherAsync(city);
-        //var countryInfo = await countryInfoService.GetCountryInfoAsync(name);
+        var countryInfo = await countryInfoService.GetCountryInfoAsync(city.Country);
+        var weather = await weatherService.GetWeatherAsync(city.Name, countryInfo?.Alpha2Code ?? string.Empty);
         result.Add(new CityCountryWeather
         {
             City = city,
-            Country = null,
-            Weather = null
+            Country = countryInfo!,
+            Weather = weather!
         });
     }
 
@@ -101,7 +103,6 @@ app.MapDelete("/city/{id:int}", async (int id, CityDb db) =>
 }).WithName("DeleteCity");
 
 app.Run();
-
 
 // We need to expose the implicitly defined program class, so that the test project can target it
 // See https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-6.0#sut-environment

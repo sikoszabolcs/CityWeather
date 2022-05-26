@@ -15,19 +15,16 @@ public class WeatherService
         _jsonOptions = new JsonSerializerOptions();
     }
 
-    public async Task<WeatherRoot?> GetWeatherAsync(City city)
+    public async Task<WeatherRoot?> GetWeatherAsync(string cityName, string countryCode)
     {
-        var apiKey = "40e731b3833b662d8440f70f58e3b731";
-        var uri = 
-            string.Format("/data/2.5/weather?q={0},{1},{2}&appid={3}&units=metric", 
-                city.Name, city.State, city.Country, apiKey);
+        const string apiKey = "40e731b3833b662d8440f70f58e3b731";
+        var uri = $"/data/2.5/weather?q={cityName},{countryCode}&appid={apiKey}&units=metric";
         var response = await _httpClient.GetAsync(uri);
-        WeatherRoot? weather = null!;
-        if (response.IsSuccessStatusCode)
-        {
-            var contentStream = await response.Content.ReadAsStreamAsync();
-            weather = await JsonSerializer.DeserializeAsync<WeatherRoot>(contentStream, _jsonOptions);
-        }
+
+        if (!response.IsSuccessStatusCode) return null;
+        
+        var contentStream = await response.Content.ReadAsStreamAsync();
+        var weather = await JsonSerializer.DeserializeAsync<WeatherRoot>(contentStream, _jsonOptions);
         return weather;
     }
 }
