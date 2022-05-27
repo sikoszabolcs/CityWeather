@@ -78,11 +78,12 @@ Run the all test cases on the HTTP endpoints.
 dotnet test
 ```
 
-## Issues
+## Issues / Deviations
 
-1) The countries API at https://restcountries.eu/#api-endpoints-all is no longer active. Had to use the https://restcountries.com (see https://github.com/apilayer/restcountries/issues/253)
+1) The countries API at https://restcountries.eu/#api-endpoints-all is no longer active. Had to use the https://restcountries.com (see https://github.com/apilayer/restcountries/issues/253). Within the the restcountries.com endpoints there is a 'name' API endpoint, which shall be used in preference to the 'all' endpoint.
 2) Cities have an established date, however a great deal of cities have been establised B.C. and .NET doesn't have a way of representing B.C. dates. e.g. Paris was established around 250 B.C. As a workaround I had to use Jon Skeet's NodaTime library, which can represent dates between years -9998 and 9999. This I found to be a good enough compromise.
 3) Note that a country may have more than one official currency. The City Weather API will return all official currencies, separated by a comma.
+4) Given the current spec, it is possible to add the same city to the database more than once, so we'll need a UNIQUE constraint on the Sqlite DB.
 
 ## References
 
@@ -90,3 +91,7 @@ I found the following blog posts, tutorials, videos and tools extremely useful a
 - [Tutorial: Create a minimal web API with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-6.0&tabs=visual-studio)
 - [Swagger](https://swagger.io/)
 - [Postman](https://www.postman.com/)
+- [Dapper](https://github.com/DapperLib/Dapper)
+- [OpenWeatherMap](https://openweathermap.org/)
+- [RestCountries](https://restcountries.com)
+- [DB Browser for SQLite](https://sqlitebrowser.org/)
