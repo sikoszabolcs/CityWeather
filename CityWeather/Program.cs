@@ -43,7 +43,9 @@ app.MapPost("/city", async (City city, CityDb db) =>
 
     return Results.Created($"/city/{city.Id}", city);
 
-}).WithName("AddCity");
+})
+    .WithName("AddCity")
+    .Produces(StatusCodes.Status201Created);
 
 app.MapPut("/city/{id:int}", async (int id, City input, CityDb db) =>
 {
@@ -58,7 +60,10 @@ app.MapPut("/city/{id:int}", async (int id, City input, CityDb db) =>
     await db.SaveChangesAsync();
 
     return Results.Ok();
-}).WithName("UpdateCity");
+})
+    .WithName("UpdateCity")
+    .Produces(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound);
 
 app.MapGet("/searchByName/{name}",
     async (
@@ -88,7 +93,10 @@ app.MapGet("/searchByName/{name}",
 
     return Results.Ok(result);
 
-}).WithName("SearchCity");
+})
+    .WithName("SearchCity")
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status200OK);
 
 app.MapDelete("/city/{id:int}", async (int id, CityDb db) =>
 {
@@ -100,7 +108,10 @@ app.MapDelete("/city/{id:int}", async (int id, CityDb db) =>
     }
 
     return Results.NotFound();
-}).WithName("DeleteCity");
+})
+    .WithName("DeleteCity")
+    .Produces(StatusCodes.Status404NotFound)
+    .Produces(StatusCodes.Status200OK);
 
 app.Run();
 
