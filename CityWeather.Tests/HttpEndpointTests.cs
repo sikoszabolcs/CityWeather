@@ -23,7 +23,7 @@ namespace CityWeather.Tests
                     Id = 0,
                     Country = "France",
                     Name = "Paris",
-                    EstablishedDate = new DateTime(0),
+                    EstablishedDate = "250 B.C.",
                     Rating = TouristRating.Good,
                     EstimatedPopulation = 2165423,
                     State = "Île-de-France"
@@ -36,7 +36,7 @@ namespace CityWeather.Tests
             Assert.Single(cityCountryWeatherCollection);
             Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
             Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
-            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal("250 B.C.", cityCountryWeatherCollection?[0].City.EstablishedDate);
             Assert.Equal(TouristRating.Good, cityCountryWeatherCollection?[0].City.Rating);
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
@@ -55,7 +55,7 @@ namespace CityWeather.Tests
                     Id = 0,
                     Country = "France",
                     Name = "Paris",
-                    EstablishedDate = new DateTime(0),
+                    EstablishedDate = "250 B.C.",
                     Rating = TouristRating.Good,
                     EstimatedPopulation = 2165423,
                     State = "Île-de-France"
@@ -66,7 +66,7 @@ namespace CityWeather.Tests
             Assert.Single(cityCountryWeatherCollection);
             Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
             Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
-            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal("250 B.C.", cityCountryWeatherCollection?[0].City.EstablishedDate);
             Assert.Equal(TouristRating.Good, cityCountryWeatherCollection?[0].City.Rating);
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
@@ -75,7 +75,7 @@ namespace CityWeather.Tests
                 $"/city/{cityCountryWeatherCollection?[0].City.Id}",
                 new City
                 {
-                    EstablishedDate = new DateTime(0),
+                    EstablishedDate = "250 B.C.",
                     Rating = TouristRating.Meh,
                     EstimatedPopulation = 2165423
                 });
@@ -86,7 +86,7 @@ namespace CityWeather.Tests
             Assert.Single(cityCountryWeatherCollection);
             Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
             Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
-            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal("250 B.C.", cityCountryWeatherCollection?[0].City.EstablishedDate);
             Assert.Equal(TouristRating.Meh, cityCountryWeatherCollection?[0].City.Rating);
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
@@ -105,7 +105,7 @@ namespace CityWeather.Tests
                     Id = 0,
                     Country = "France",
                     Name = "Paris",
-                    EstablishedDate = new DateTime(0),
+                    EstablishedDate = "250 B.C.",
                     Rating = TouristRating.Good,
                     EstimatedPopulation = 2165423,
                     State = "Île-de-France"
@@ -116,7 +116,7 @@ namespace CityWeather.Tests
             Assert.Single(cityCountryWeatherCollection);
             Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
             Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
-            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal("250 B.C.", cityCountryWeatherCollection?[0].City.EstablishedDate);
             Assert.Equal(TouristRating.Good, cityCountryWeatherCollection?[0].City.Rating);
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
@@ -152,7 +152,7 @@ namespace CityWeather.Tests
                     Id = 0,
                     Country = "France",
                     Name = "Paris",
-                    EstablishedDate = new DateTime(0),
+                    EstablishedDate = "250 B.C.",
                     Rating = TouristRating.Good,
                     EstimatedPopulation = 2165423,
                     State = "Île-de-France"
@@ -163,7 +163,7 @@ namespace CityWeather.Tests
             Assert.Single(cityCountryWeatherCollection);
             Assert.Equal("Paris", cityCountryWeatherCollection?[0].City.Name);
             Assert.Equal("France", cityCountryWeatherCollection?[0].City.Country);
-            Assert.Equal(new DateTime(0), cityCountryWeatherCollection?[0].City.EstablishedDate);
+            Assert.Equal("250 B.C.", cityCountryWeatherCollection?[0].City.EstablishedDate);
             Assert.Equal(TouristRating.Good, cityCountryWeatherCollection?[0].City.Rating);
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
