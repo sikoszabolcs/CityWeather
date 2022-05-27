@@ -54,7 +54,9 @@ internal class WeatherApplication : WebApplicationFactory<CityWeather.Dapper.Pro
             {nameof(City.Country)} TEXT NOT NULL,
             {nameof(City.Rating)} INTEGER DEFAULT 0 NOT NULL CHECK({nameof(City.Rating)} IN (0, 1, 2, 3, 4, 5)),
             {nameof(City.EstablishedDate)} TEXT NOT NULL,
-            {nameof(City.EstimatedPopulation)} INTEGER DEFAULT 0 NOT NULL);";
+            {nameof(City.EstimatedPopulation)} INTEGER DEFAULT 0 NOT NULL,
+            UNIQUE ({nameof(City.Name)}, {nameof(City.State)}, {nameof(City.Country)})
+    );";
         db.Execute(sql);
     }
 }

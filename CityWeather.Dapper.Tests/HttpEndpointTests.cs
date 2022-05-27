@@ -166,5 +166,31 @@ namespace CityWeather.Dapper.Tests
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
         }
+        
+        // TODO: Add test for unique constraint
+        
+        [Fact]
+        public async Task TestUniqueConstraint()
+        {
+            await using var application = new WeatherApplication();
+            var client = application.CreateClient();
+
+            var paris = new City
+            {
+                Country = "France",
+                Name = "Paris",
+                EstablishedDate = "250 B.C.",
+                Rating = TouristRating.Good,
+                EstimatedPopulation = 2165423,
+                State = "Île-de-France"
+            };
+            var postResponse = await client.PostAsJsonAsync("/city", paris);
+            Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+            
+            postResponse = await client.PostAsJsonAsync("/city", paris);
+            Assert.Equal(HttpStatusCode.UnprocessableEntity, postResponse.StatusCode);
+        }
+        
+        // TODO: Add tests to provoke SqliteException
     }
 }

@@ -46,18 +46,13 @@ app.MapPost("/city", async (City city, SqliteConnection db) =>
 {
     // TODO: add validation
     var ratingAsInt = Convert.ToUInt32(city.Rating);
-    //var newCity = await db.QuerySingleAsync<City>(
-    //    "INSERT INTO Cities(Name, State, Country, EstablishedDate, EstimatedPopulation) Values(@Name, @State, @Country, @EstablishedDate, @EstimatedPopulation) RETURNING * ", city);
-
+    
     try
     {
         var newCity = await db.QuerySingleAsync<City>(
             "INSERT INTO Cities(Name, State, Country, Rating, EstablishedDate, EstimatedPopulation) Values(@name, @state, @country, @rating, @establishedDate, @estimatedPopulation) RETURNING * ",
             new { name = city.Name, state = city.State, country = city.Country, rating = ratingAsInt, establishedDate = city.EstablishedDate, estimatedPopulation = city.EstimatedPopulation });
-
-        //var newCity = await db.QuerySingleAsync<City>(
-        //    "INSERT INTO Cities(Name, State, Country, Rating, EstablishedDate, EstimatedPopulation) Values(@Name, @State, @Country, @rating, @EstablishedDate, @EstimatedPopulation) RETURNING * ", new { city, rating });
-
+        
         return Results.Created($"/city/{city.Id}", newCity);
     }
     catch (SqliteException e)
@@ -89,7 +84,7 @@ app.MapGet("/searchByName/{name}",
         WeatherService weatherService,
         CountryInfoService countryInfoService) =>
     {
-        var cities = await db.QueryAsync<City>("SELECT * FROM Cities WHERE Name = @name", new { name });
+        var cities = (await db.QueryAsync<City>("SELECT * FROM Cities WHERE Name = @name", new { name })).ToArray();
         if (!cities.Any())
         {
             return Results.NotFound();
@@ -137,7 +132,11 @@ async Task EnsureDb(IServiceProvider services, ILogger logger)
             {nameof(City.Country)} TEXT NOT NULL,
             {nameof(City.Rating)} INTEGER DEFAULT 0 NOT NULL CHECK({nameof(City.Rating)} IN (0, 1, 2, 3, 4, 5)),
             {nameof(City.EstablishedDate)} TEXT NOT NULL,
-            {nameof(City.EstimatedPopulation)} INTEGER DEFAULT 0 NOT NULL);";
+            {nameof(City.EstimatedPopulation)} INTEGER DEFAULT 0 NOT NULL,
+            UNIQUE ({nameof(City.Name)}, {nameof(City.State)}, {nameof(City.Country)})
+    );";
+    
+    // TODO: Add unique constraint
     await db.ExecuteAsync(sql);
 }
 
