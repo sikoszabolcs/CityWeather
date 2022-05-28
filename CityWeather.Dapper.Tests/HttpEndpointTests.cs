@@ -166,9 +166,7 @@ namespace CityWeather.Dapper.Tests
             Assert.Equal((uint)2165423, cityCountryWeatherCollection?[0].City.EstimatedPopulation);
             Assert.Equal("Île-de-France", cityCountryWeatherCollection?[0].City.State);
         }
-        
-        // TODO: Add test for unique constraint
-        
+
         [Fact]
         public async Task TestUniqueConstraint()
         {
@@ -191,6 +189,24 @@ namespace CityWeather.Dapper.Tests
             Assert.Equal(HttpStatusCode.UnprocessableEntity, postResponse.StatusCode);
         }
         
-        // TODO: Add tests to provoke SqliteException
+        [Fact]
+        public async Task TestAddCityWithNullName()
+        {
+            await using var application = new WeatherApplication();
+            var client = application.CreateClient();
+
+            var paris = new City
+            {
+                State = "Île-de-France",
+                Country = "France",
+                EstablishedDate = "250 B.C.",
+                Rating = TouristRating.Amazing,
+                EstimatedPopulation = 2165423
+            };
+            var postResponse = await client.PostAsJsonAsync("/city", paris);
+            Assert.Equal(HttpStatusCode.UnprocessableEntity, postResponse.StatusCode);
+            var errorMessage = await postResponse.Content.ReadAsStringAsync();
+            Assert.Equal("\"SQLite Error 19: 'NOT NULL constraint failed: Cities.Name'.\"", errorMessage);
+        }
     }
 }

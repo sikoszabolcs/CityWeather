@@ -44,7 +44,6 @@ app.MapGet("/error", () => Results.Problem("An error occurred.", statusCode: 500
 
 app.MapPost("/city", async (City city, SqliteConnection db) =>
 {
-    // TODO: add validation
     var ratingAsInt = Convert.ToUInt32(city.Rating);
     
     try
@@ -67,8 +66,6 @@ app.MapPost("/city", async (City city, SqliteConnection db) =>
 app.MapPut("/city/{id:int}", async (int id, City city, SqliteConnection db) =>
 {
     city.Id = id;
-    // TODO: add validation
-
     return await db.ExecuteAsync("UPDATE Cities SET Rating = @Rating, EstablishedDate = @EstablishedDate, EstimatedPopulation = @EstimatedPopulation WHERE Id = @Id", city) == 1
         ? Results.NoContent()
         : Results.NotFound();
