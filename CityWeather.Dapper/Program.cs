@@ -133,7 +133,6 @@ async Task EnsureDb(IServiceProvider services, ILogger logger)
             UNIQUE ({nameof(City.Name)}, {nameof(City.State)}, {nameof(City.Country)})
     );";
     
-    // TODO: Add unique constraint
     await db.ExecuteAsync(sql);
 }
 
