@@ -7,10 +7,10 @@ City Weather is a web API which provides HTTP endpoints for CRUD operation on ci
 ## Project structure
 
 The CityWeather project is structured into a solution with the following project files:
-- *CityWeather* - the CityWeather project which contains the model definitions and a test HTTP endpoint written with .NET 6 minimal APIs, EFCore and an in memory database.
-- CityWeather.Tests - all the test cases for the CityWeather project and the EFCore HTTP endpoint.
-- CityWeather.Dappre - the main HTTP web API written with .NET 6 minimal APIs, the Dapper ORM and supported by an Sqlite database.
-- CityWeather.Dapper.Tests - all the test cases for the CityWeather.Dapper project and the main HTTP web API.
+- **CityWeather** - the CityWeather project which contains the model definitions and a test HTTP endpoint written with .NET 6 minimal APIs, EFCore and an in memory database.
+- **CityWeather.Tests** - all the test cases for the CityWeather project and the EFCore HTTP endpoint.
+- **CityWeather.Dappre** - the main HTTP web API written with .NET 6 minimal APIs, the Dapper ORM and supported by an Sqlite database.
+- **CityWeather.Dapper.Tests** - all the test cases for the CityWeather.Dapper project and the main HTTP web API.
 
 ## API Keys, Build & Run
 
